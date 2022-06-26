@@ -51,3 +51,35 @@ Resources:
           Properties: 
             Path: /verify
             Method: post
+  PWLogicFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: pw_logic_function/
+      Layers:
+        - !Ref SharedLayer
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Events:
+        Health: 
+          Type: Api
+          Properties:
+            Path: /health
+            Method: get
+        GetPassword:
+          Type: Api
+          Properties:
+            Path: /password
+            Method: get
+        UpdatePassword:
+          Type: Api
+          Properties:
+            Path: /password
+            Method: put
+        AddPassword:
+          Type: Api
+          Properties:
+            Path: /password
+            Method: post
+        

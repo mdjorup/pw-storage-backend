@@ -22,7 +22,9 @@ def build_response(status_code, body):
 @tracer.capture_method
 def get_health():
 
-    return build_response(200, {"message": "This is the auth function"})
+    return build_response(
+        200, {"message": "This is the Logic Function and i just edited it."}
+    )
 
 
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.API_GATEWAY_REST)
