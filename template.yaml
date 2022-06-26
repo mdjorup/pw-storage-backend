@@ -34,22 +34,22 @@ Resources:
         Health: 
           Type: Api
           Properties:
-            Path: /health
+            Path: /auth/health
             Method: get
         Register:
           Type: Api
           Properties:
-            Path: /register
+            Path: /auth/register
             Method: post
         Login:
           Type: Api
           Properties:
-            Path: /login
+            Path: /auth/login
             Method: post
         Verify:
           Type: Api
           Properties: 
-            Path: /verify
+            Path: /auth/verify
             Method: post
   PWLogicFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -65,21 +65,21 @@ Resources:
         Health: 
           Type: Api
           Properties:
-            Path: /health
+            Path: /logic/health
             Method: get
         GetPassword:
           Type: Api
           Properties:
-            Path: /password
+            Path: /logic/password/{user_id}/{account_id}
             Method: get
         UpdatePassword:
           Type: Api
           Properties:
-            Path: /password
+            Path: /logic/password/{user_id}/{account_id}
             Method: put
-        AddPassword:
+        CreateAccount:
           Type: Api
           Properties:
-            Path: /password
+            Path: /logic/password/{user_id}
             Method: post
         

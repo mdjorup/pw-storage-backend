@@ -18,11 +18,29 @@ def build_response(status_code, body):
     )
 
 
-@app.get("/health")
+@app.get("/auth/health")
 @tracer.capture_method
 def get_health():
 
     return build_response(200, {"message": "This is the auth function"})
+
+
+@app.post("/auth/register")
+@tracer.capture_method
+def register():
+    return
+
+
+@app.post("/auth/login")
+@tracer.capture_method
+def login():
+    return
+
+
+@app.post("/auth/verify")
+@tracer.capture_method
+def verify():
+    return
 
 
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.API_GATEWAY_REST)

@@ -18,13 +18,31 @@ def build_response(status_code, body):
     )
 
 
-@app.get("/health")
+@app.get("/logic/health")
 @tracer.capture_method
 def get_health():
 
     return build_response(
         200, {"message": "This is the Logic Function and i just edited it."}
     )
+
+
+@app.get("/logic/password/<user_id>/<account_id>")
+@tracer.capture_method
+def get_password(user_id, account_id):
+    return
+
+
+@app.put("/logic/password/<user_id>/<account_id>")
+@tracer.capture_method
+def update_password(user_id, account_id):
+    return
+
+
+@app.post("/logic/password/<user_id>")
+@tracer.capture_method
+def create_account(user_id):
+    return
 
 
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.API_GATEWAY_REST)
