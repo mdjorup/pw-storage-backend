@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Password Storage App
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 10
+  Api:
+    Cors:
+      AllowMethods: "'OPTIONS,POST,GET'"
+      AllowHeaders: "'*'"
+      AllowOrigin: "'*'"
+
+Resources:
+  SharedLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: shared/
+      CompatibleRuntimes:
+        - python3.9
+  PWAuthFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: pw_auth_function/
+      Layers:
+        - !Ref SharedLayer
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Events:
+        Health: 
+          Type: Api
+          Properties:
+            Path: /health
+            Method: get
+        Register:
+          Type: Api
+          Properties:
+            Path: /register
+            Method: post
+        Login:
+          Type: Api
+          Properties:
+            Path: /login
+            Method: post
+        Verify:
+          Type: Api
+          Properties: 
+            Path: /verify
+            Method: post
